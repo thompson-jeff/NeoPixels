@@ -1,0 +1,35 @@
+// Jeff Thompson - 3/15/2014
+// Arduino 1.05-r2 required
+// MultipleStripsInOneArray. In this example, we're going to set up four led strips on three
+// different pins, each strip will be referring to a different part of the single led array
+
+#include "FastLED.h"
+
+#define NUM_STRIPS 3
+#define NUM_LEDS_PER_STRIP 10
+#define NUM_LEDS NUM_LEDS_PER_STRIP * NUM_STRIPS
+
+CRGB leds[NUM_STRIPS * NUM_LEDS_PER_STRIP];
+
+// For mirroring strips, all the "special" stuff happens just in setup.  We
+// just addLeds multiple times, once for each strip
+void setup() {
+  // tell FastLED there's 60 NEOPIXEL leds on pin 10, starting at index 0 in the led array
+  FastLED.addLeds<TM1803, 6>(leds, 0, NUM_LEDS_PER_STRIP);
+
+  // tell FastLED there's 60 NEOPIXEL leds on pin 11, starting at index 60 in the led array
+  FastLED.addLeds<TM1803, 7>(leds, NUM_LEDS_PER_STRIP, NUM_LEDS_PER_STRIP);
+
+  // tell FastLED there's 60 NEOPIXEL leds on pin 12, starting at index 120 in the led array
+  FastLED.addLeds<TM1803, 8>(leds, 2 * NUM_LEDS_PER_STRIP, NUM_LEDS_PER_STRIP);
+
+}
+
+void loop() {
+  for(int i = 0; i < NUM_LEDS; i++) {
+    leds[i] = CRGB::Red;
+    FastLED.show();
+    leds[i] = CRGB::Black;
+    delay(100);
+  }
+}
