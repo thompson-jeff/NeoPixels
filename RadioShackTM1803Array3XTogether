@@ -1,0 +1,53 @@
+//Jeff Thompson - 3/15/2014
+//Arduino 1.05-r2 required
+// Mirroring Leds.
+// Uncomment/edit one of the following lines for your leds arrangement.
+// FastLED.addLeds<TM1803, DATA_PIN, RGB>(leds, NUM_LEDS);
+// F astLED.addLeds<TM1804, DATA_PIN, RGB>(leds, NUM_LEDS);
+// FastLED.addLeds<TM1809, DATA_PIN, RGB>(leds, NUM_LEDS);
+// FastLED.addLeds<WS2811, DATA_PIN, RGB>(leds, NUM_LEDS);
+// FastLED.addLeds<WS2812, DATA_PIN, RGB>(leds, NUM_LEDS);
+// FastLED.addLeds<WS2812B, DATA_PIN, RGB>(leds, NUM_LEDS);
+// FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
+// FastLED.addLeds<UCS1903, DATA_PIN, RGB>(leds, NUM_LEDS);
+// FastLED.addLeds<UCS1903B, DATA_PIN, RGB>(leds, NUM_LEDS);
+// FastLED.addLeds<GW6205, DATA_PIN, RGB>(leds, NUM_LEDS);
+// FastLED.addLeds<GW6205_400, DATA_PIN, RGB>(leds, NUM_LEDS);
+// FastLED.addLeds<WS2801, RGB>(leds, NUM_LEDS);
+// FastLED.addLeds<SM16716, RGB>(leds, NUM_LEDS);
+// FastLED.addLeds<LPD8806, RGB>(leds, NUM_LEDS);
+// FastLED.addLeds<WS2801, DATA_PIN, CLOCK_PIN, RGB>(leds, NUM_LEDS);
+// FastLED.addLeds<SM16716, DATA_PIN, CLOCK_PIN, RGB>(leds, NUM_LEDS);
+// FastLED.addLeds<LPD8806, DATA_PIN, CLOCK_PIN, RGB>(leds, NUM_LEDS);
+#include "FastLED.h"
+
+#define NUM_LEDS_PER_STRIP 10
+CRGB leds[NUM_LEDS_PER_STRIP];
+
+void setup() {
+  // tell FastLED there's 10 leds on pin 6
+  FastLED.addLeds<TM1803, 6>(leds, NUM_LEDS_PER_STRIP);
+  FastLED.addLeds<TM1803, 7>(leds, NUM_LEDS_PER_STRIP);
+  FastLED.addLeds<TM1803, 8>(leds, NUM_LEDS_PER_STRIP);
+  FastLED.addLeds<TM1803, 9>(leds, NUM_LEDS_PER_STRIP);
+}
+
+void loop() {
+  for(int i = 0; i < NUM_LEDS_PER_STRIP; i++) {
+    // set our current dot to red
+    leds[i] = CRGB::Green;
+    FastLED.show();
+    // clear our current dot before we move on
+    leds[i] = CRGB::Black;
+    delay(100);
+  }
+
+  for(int i = NUM_LEDS_PER_STRIP-1; i >= 0; i--) {
+    // set our current dot to red
+    leds[i] = CRGB::Green;
+    FastLED.show();
+    // clear our current dot before we move on
+    leds[i] = CRGB::Black;
+    delay(100);
+  }
+}
